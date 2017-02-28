@@ -1,0 +1,17 @@
+.btn-primary {
+	margin-right: 5px !important;
+}
+.progress-bar {
+     -webkit-transition: width 1s; /* For Safari 3.1 to 6.0 */
+    transition: width 1s;
+}
+.progress {
+  position: relative;
+}
+
+.progress span {
+    position: absolute;
+    display: block;
+    width: 100%;
+    color: black;
+}
