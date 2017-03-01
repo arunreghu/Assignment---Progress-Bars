@@ -1,27 +1,34 @@
-var mainApp = angular.module('mainApp',['ngAnimate']);
+/* Angular App Document */
+(function() {
 
-mainApp.controller('myController',function($scope){
+    angular
+        .module('mainApp', [])
+        .controller('progressBarController', progressBarController);
+})();
 
-  $scope.progressbarIndex = "0";
+/**
+ * @name progressBarController
+ * @desc progress bar controller function
+ * @param {progressbarsMainservice}  Service to do main functions
+ * @returns 
+ */
+function progressBarController(progressbarsMainservice) {
 
-  $scope.controlls = {"buttons":[-25,-10,10,25],"bars":[25,50,75],"limit":100};
+    var vm = this;
+    vm.progressbarIndex = "0";
+    vm.controlls = progressbarsMainservice.getDefaultControls();
+    vm.updateProgress = updateProgress;
+    vm.getWidth = progressbarsMainservice.getWidth();
 
-  $scope.getWidth = function(width){
-  	return width+'%';
-  }
+    /**
+     * @name updateProgress
+     * @desc update process bar with given width
+     * @param {width} width to change in progress bar
+     * @param {index} index of current progress bar
+     * @returns 
+     */
+    function updateProgress(width, index) {
+        progressbarsMainservice.progressBarUpdate(width, index);
+    }
 
-  $scope.updateProgress = function(width,index){
-
-        var bar_value = $scope.controlls.bars[index];
-        var updated_value = bar_value + width;
-
-        if(updated_value <= 0){
-        	$scope.controlls.bars[index] = 0; 
-        }else{
-        	$scope.controlls.bars[index] = updated_value; 
-        }
-        
-    	
-   }
-
-});
+}

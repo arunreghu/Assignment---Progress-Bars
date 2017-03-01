@@ -8,30 +8,36 @@
   <link rel="stylesheet" href="app/style/style.css">
 </head>
 <body>
-<div class="container" ng-app="mainApp" ng-controller="myController">
+<div class="container" ng-app="mainApp" ng-controller="progressBarController as progressBar">
 	<div class="row">
 		<h2>Progress Bar</h2>
-		<div class="progress" ng-repeat="bar in controlls.bars track by $index">
-			<div class="progress-bar progress-bar-success" ng-class="{'progress-bar-danger': bar > controlls.limit}" role="progressbar" aria-valuenow="30"  ng-style="{'width':getWidth(bar)}">
-			<span>{{bar}}%</span>
-			</div>
+		<div class="progress" ng-repeat="bar in progressBar.controlls.bars track by $index" >
+			<progress-bar item="bar""></progress-bar>
 		</div>
  	</div>
 	<div class="row">
         <div class="col-md-2">
-			<select class="form-control" id="sel1" ng-model="progressbarIndex">
-       			 <option ng-repeat="progress in controlls.bars track by $index" value="{{$index}}">progress{{$index+1}}</option>
+			<select class="form-control" id="sel1" ng-model="progressBar.progressbarIndex">
+       			 <option ng-repeat="progress in progressBar.controlls.bars track by $index" value="{{$index}}">progress{{$index+1}}</option>
      		 </select>
      	</div>
-     	<div class="col-md-10">
-			<button ng-click="updateProgress(button,progressbarIndex)"  ng-repeat="button in controlls.buttons" type="button" class="btn btn-primary ">{{button}}</button><br>
-	</div>
+     	 <div class="col-md-10">
+     	 	<div class="btn-controller" ng-repeat="button in progressBar.controlls.buttons">
+     	 		<controlls item="button" barindex="progressBar.progressbarIndex" ></controlls>
+     	 	</div>
+     	 </div>
 </div>
 
 <script src="app/js/jquery.min.js"></script>
 <script src="app/js/bootstrap.min.js"></script>
+
 <script src="app/js/angular.min.js"></script>
-<script src="app/js/angular-animate.js"></script>
+
 <script src="app/app.js"></script>
+<!--Services -->
+<script src="app/services/app.service.mainservice.js"></script>
+<!--Directives -->
+<script src="app/directives/app.directive.progressbar.js"></script>
+<script src="app/directives/app.directive.controlls.js"></script>
 </body>
 </html>
